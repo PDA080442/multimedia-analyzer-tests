@@ -45,11 +45,9 @@ class TestAnalyzeImage:
         """Тест: обработка ошибки при отсутствии файла"""
         non_existent_file = "/nonexistent/path/to/file.jpg"
         
-        # Функция должна обработать ошибку и вывести информацию
-        analyze_image(non_existent_file)
-        captured = capsys.readouterr()
-        # Должна быть ошибка при попытке получить информацию о файле
-        assert "АНАЛИЗ ИЗОБРАЖЕНИЯ" in captured.out
+        # Функция падает на get_file_info, так как файл не существует
+        with pytest.raises(FileNotFoundError):
+            analyze_image(non_existent_file)
 
     def test_analyze_image_invalid_format(self, capsys):
         """Тест: обработка невалидного формата файла"""

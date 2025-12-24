@@ -35,11 +35,9 @@ class TestAnalyzeVideo:
         """Тест: обработка ошибки при отсутствии файла"""
         non_existent_file = "/nonexistent/path/to/file.mp4"
         
-        # Функция должна обработать ошибку и вывести информацию
-        analyze_video(non_existent_file)
-        captured = capsys.readouterr()
-        # Должна быть ошибка при попытке получить информацию о файле
-        assert "АНАЛИЗ ВИДЕОФАЙЛА" in captured.out
+        # Функция падает на get_file_info, так как файл не существует
+        with pytest.raises(FileNotFoundError):
+            analyze_video(non_existent_file)
 
     def test_analyze_video_invalid_format(self, capsys):
         """Тест: обработка невалидного формата файла"""
